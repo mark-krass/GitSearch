@@ -2,8 +2,9 @@ package com.example.gambm.gitsearch;
 
 public class ReposInfo {
 
-    private String full_name;
+    private String login;
 
-    @Override
-    public String toString() {return full_name;}
+    public void setLogin(String login){this.login = login;}
+
+    public String getLogin(){return login;}
 }

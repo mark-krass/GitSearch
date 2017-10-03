@@ -9,9 +9,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 interface GitHubService{
-    @GET("search/repositories?q=repo")
+    @GET("search/repositories?q=name")
     Call<List<ReposInfo>> repoContributors(
-            @Query("repo") String repo);
+            @Query("name") String name);
 
 
     public static final Retrofit retrofit = new Retrofit.Builder()

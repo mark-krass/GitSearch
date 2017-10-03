@@ -43,7 +43,7 @@ public class BoxAdapter extends BaseAdapter {
             view = lInflater.inflate(R.layout.item, parent, false);
         }
         ReposInfo u = getUserInfo(position);
-        ((TextView) view.findViewById(R.id.tvReposname)).setText(u.toString());
+        ((TextView) view.findViewById(R.id.tvReposname)).setText(u.getLogin());
         return view;
     }
 
