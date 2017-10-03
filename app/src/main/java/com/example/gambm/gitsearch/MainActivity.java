@@ -2,7 +2,11 @@ package com.example.gambm.gitsearch;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -16,10 +20,13 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    @BindView(R.id.lvSimple)
+    protected ListView lvsimple;
 
+    @BindView(R.id.etSearch)
+    protected EditText etsearch;
 
-    @BindView(R.id.tvRepos)
-    protected TextView repos;
+    private final String LOG_TAG = "mylogs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +42,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onClick() {
         {
             GitHubService gitHubService = GitHubService.retrofit.create(GitHubService.class);
-            final Call<List<Contributor>> call = gitHubService.repoContributors("square", "retrofit");
-            call.enqueue(new Callback<List<Contributor>>() {
+            final Call<List<ReposInfo>> call = gitHubService.repoContributors(etsearch.getText().toString());
+            call.enqueue(new Callback<List<ReposInfo>>() {
                 @Override
-                public void onResponse(Call<List<Contributor>> call, Response<List<Contributor>> response) {
-                    repos.setText(response.body().toString());
+                public void onResponse(Call<List<ReposInfo>> call, Response<List<ReposInfo>> response) {
+                    lvsimple.setAdapter(new BoxAdapter(MainActivity.this, response.body()));
                 }
 
                 @Override
-                public void onFailure(Call<List<Contributor>> call, Throwable t) {
-                    repos.setText("Something went wrong: " + t.getMessage());
+                public void onFailure(Call<List<ReposInfo>> call, Throwable t) {
+                    Log.d(LOG_TAG, String.valueOf(t));
                 }
             });
         }

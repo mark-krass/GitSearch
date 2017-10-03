@@ -6,13 +6,12 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 interface GitHubService{
-    @GET("repos/{owner}/{repo}/contributors")
-    Call<List<Contributor>> repoContributors(
-            @Path("owner") String owner,
-            @Path("repo") String repo);
+    @GET("search/repositories?q=repo")
+    Call<List<ReposInfo>> repoContributors(
+            @Query("repo") String repo);
 
 
     public static final Retrofit retrofit = new Retrofit.Builder()
