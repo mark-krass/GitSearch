@@ -23,8 +23,7 @@ public class BoxAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size();
-    }
+        return list.size();}
 
     @Override
     public Object getItem(int position) {

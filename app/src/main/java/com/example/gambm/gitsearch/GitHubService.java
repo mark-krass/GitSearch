@@ -8,10 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-interface GitHubService{
-    @GET("search/repositories?q=name")
+interface GitHubService {
+    @GET("search/repositories")
     Call<List<ReposInfo>> repoContributors(
-            @Query("name") String name);
+            @Query("q") String q);
 
 
     public static final Retrofit retrofit = new Retrofit.Builder()
