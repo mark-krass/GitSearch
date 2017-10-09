@@ -3,13 +3,8 @@ package com.example.gambm.gitsearch;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,13 +22,10 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.etSearch)
     protected EditText etsearch;
 
-    private final String LOG_TAG = "mylogs";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         ButterKnife.bind(this);
     }
@@ -43,16 +35,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onClick() {
         {
             GitHubService gitHubService = GitHubService.retrofit.create(GitHubService.class);
-            final Call<List<ReposInfo>> call = gitHubService.repoContributors(etsearch.getText().toString());
-            call.enqueue(new Callback<List<ReposInfo>>() {
+            final Call<ReposInfo> call = gitHubService.repoContributors(etsearch.getText().toString());
+            call.enqueue(new Callback<ReposInfo>() {
                 @Override
-                public void onResponse(Call<List<ReposInfo>> call, Response<List<ReposInfo>> response) {
-                    lvsimple.setAdapter(new BoxAdapter(MainActivity.this, response.body()));
+                public void onResponse(Call<ReposInfo> call, Response<ReposInfo> response) {
+                    lvsimple.setAdapter(new BoxAdapter(MainActivity.this, response.body().getList()));
                 }
 
                 @Override
-                public void onFailure(Call<List<ReposInfo>> call, Throwable t) {
-                    Log.d(LOG_TAG, String.valueOf(t));
+                public void onFailure(Call<ReposInfo> call, Throwable t) {
+                    Log.d("mylogs", String.valueOf(t));
                 }
             });
         }

@@ -7,23 +7,22 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class BoxAdapter extends BaseAdapter {
 
     private LayoutInflater lInflater;
-    private List<ReposInfo> list;
-    private Context ctx;
+    private ArrayList<Login> list;
 
-    BoxAdapter(Context context, List<ReposInfo> reposInfo) {
-        ctx = context;
+    BoxAdapter(Context context, ArrayList<Login> reposInfo) {
         list = reposInfo;
-        lInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        lInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return list.size();}
+        return list.size();
+    }
 
     @Override
     public Object getItem(int position) {
@@ -41,13 +40,15 @@ public class BoxAdapter extends BaseAdapter {
         if (view == null) {
             view = lInflater.inflate(R.layout.item, parent, false);
         }
-        ReposInfo u = getUserInfo(position);
-        ((TextView) view.findViewById(R.id.tvReposname)).setText(u.getLogin());
+        Login u = getUserInfo(position);
+        ((TextView) view.findViewById(R.id.tvReposname)).setText(u.getFull_name());
+        ((TextView) view.findViewById(R.id.tvLogin)).setText(u.getName());
+        ((TextView) view.findViewById(R.id.tvId)).setText(String.valueOf(u.getId()));
         return view;
     }
 
-    private ReposInfo getUserInfo(int position) {
-        return ((ReposInfo) getItem(position));
+    private Login getUserInfo(int position) {
+        return ((Login) getItem(position));
     }
 
 }

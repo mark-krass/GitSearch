@@ -1,10 +1,16 @@
 package com.example.gambm.gitsearch;
 
+import java.util.ArrayList;
+
 public class ReposInfo {
 
-    private String login;
+    private ArrayList<Login> items = new ArrayList<>();
 
-    public void setLogin(String login){this.login = login;}
+    public void setList(ArrayList<Login> items) {
+        this.items = items;
+    }
 
-    public String getLogin(){return login;}
+    public ArrayList<Login> getList() {
+        return items;
+    }
 }

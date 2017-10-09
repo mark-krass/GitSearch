@@ -10,7 +10,7 @@ import retrofit2.http.Query;
 
 interface GitHubService {
     @GET("search/repositories")
-    Call<List<ReposInfo>> repoContributors(
+    Call<ReposInfo> repoContributors(
             @Query("q") String q);
 
 
